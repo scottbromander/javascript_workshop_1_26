@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  
+</head>
+<body>
+  
+  <input id="searchText" type="text"/>
+  <button id="searchButton">Search GIPHY!</button>
+  
+  <img id="imageBox" src=""/>
+
+  <script>
+    let inputBox = document.getElementById("searchText");
+    let searchBtn = document.getElementById("searchButton");
+    
+    searchBtn.addEventListener("click", buttonIsClicked);
+    
+    let someMath = 1 + 1;
+    let someOtherMath = "1" + "1" + "a"; // "11a"
+    
+    function buttonIsClicked() {
+      let searchString = inputBox.value;
+      let apiKey = "8b6jqzb77sJ11lkhP2MoGZNzFfmfifQ2";
+    
+      let giphyCall = 
+        "https://api.giphy.com/v1/gifs/search?q=" + 
+        searchString + "&api_key=" + apiKey;
+      
+      fetch(giphyCall)
+        .then( response => {
+          return response.json();
+        })
+        .then( json => {
+          console.log(json);
+          let imageFromGiphy = 
+              json.data[0].images.original.url;
+        
+          let imageBox = document.getElementById("imageBox");
+          imageBox.src = imageFromGiphy;
+        })
+    }
+    
+  </script>
+</body>
+</html>
